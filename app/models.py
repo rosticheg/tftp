@@ -11,6 +11,7 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     email = db.Column(db.String(120), index=True, unique=True)
     token = db.Column(db.String(120))
+    click = db.Column(db.Integer, default=0)
     active = db.Column(db.Boolean, default=True, nullable=False)
 
     def __repr__(self):
