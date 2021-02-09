@@ -1,0 +1,12 @@
+<p>Dear {{ user.username }},</p>
+<p>
+    Your access link
+    <a href="{{ url_for('index', token=user.token, email=user.email, _external=True) }}">
+        click here
+    </a>.
+</p>
+<p>Alternatively, you can paste the following link in your browser's address bar:</p>
+<p>{{ url_for('index', token=user.token, email=user.email,  _external=True) }}</p>
+
+
+<p>Email Robot</p>

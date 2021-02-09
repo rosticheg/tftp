@@ -1,0 +1,7 @@
+Dear {{ user.username }},
+
+Your access link:
+
+{{ url_for('index', token=user.token, email=user.email, _external=True) }}
+
+Email Robot
