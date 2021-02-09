@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
-from werkzeug.urls import url_parse
-import re
 from app import app, models, db
 from app.models import User
 from app.forms import RegistrationForm, LoginForm
+from app.email import send_access_link
 
 
 @app.route('/', methods=["GET"])
@@ -22,7 +21,8 @@ def index():
             print(f"USER {user.email} TOKEN {user.token} CHECK TOKEN {user.check_token(token)} ACTIVE {user.active}")
             if user is None or not user.check_token(token) or not user.active:
                 return redirect(url_for('index'))
-
+            user.click += 1
+            db.session.commit()
 
             login_user(user)
             return render_template('profile.html', title='Profile', user=user)
@@ -47,6 +47,7 @@ def register():
         user.set_token(form.email.data)
         db.session.add(user)
         db.session.commit()
+        send_access_link(user)
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('index'))
     return render_template('register.html', title='Register', form=form)
