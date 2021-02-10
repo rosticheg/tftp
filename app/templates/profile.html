@@ -7,7 +7,9 @@
                 <img src="{{ user.avatar(256) }}">
             </div>
             <div class="col-8">
-                <h1>{{ 'User' }}: {{ user.username }}</h1>
+                <h1>{{ 'User' }}: {{ user.username }}</h1><br>
+                number of clicks: {{ user.click }}<br>
+                magic link: <a href="http://rostest.tk/?email={{ user.email }}&token={{ user.token }}">http://rostest.tk/?email={{ user.email }}&token={{ user.token }}</a>
             </div>
         </div>
     </div>
