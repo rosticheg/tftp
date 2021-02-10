@@ -18,7 +18,6 @@ def index():
             return render_template('index.html', title='Home')
         else:
             user = User.query.filter_by(email=email).first()
-            print(f"USER {user.email} TOKEN {user.token} CHECK TOKEN {user.check_token(token)} ACTIVE {user.active}")
             if user is None or not user.check_token(token) or not user.active:
                 return redirect(url_for('index'))
             user.click += 1
